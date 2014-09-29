@@ -1,15 +1,24 @@
 import toxi.geom.*;
 import peasy.*;
 
-//import java.awt.Frame;
-//import java.awt.BorderLayout;
-//import controlP5.*;
-
 PeasyCam cam;
 ArrayList <LSegment> segments;
 
-//ControlP5 cP5;
-//ControlFrame controlFrame;
+// global values for determining drawing rules
+float sA_angleX;
+float sA_angleY;
+float sA_angleZ;
+
+float sB_angleX;
+float sB_angleY;
+float sB_angleZ;
+
+float sC_angleX;
+float sC_angleY;
+float sC_angleZ;
+
+int   s_iterations;
+
 
 int growthDelay;
 int currentIteration;
