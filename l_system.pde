@@ -23,18 +23,14 @@ int growthDelay;
 int currentIteration;
 int currentFrame;
 
-float rotationX;
-float rotationY;
-
 void setup() {
   size(1000, 800, P3D);
   smooth();
 
-  rotationX = 0;
-  rotationY = 0;
   camera(0,    0, 1200,  // eyeX, eyeY, eyeZ
          0, -400,    0,  // centerX, centerY, centerZ
          0,    1,    0); // upX, upY, upZ
+  arcCam = new ArcBall(0.0, 0.0, 0.0, 1200.0, this);
 
   segments = new ArrayList <LSegment> ();
 
@@ -50,6 +46,7 @@ void setup() {
 void draw() {
   background(0);
   segments.clear();
+  arcCam.apply();
 
   // creating a proto segment spawns all of it's iterations
   Vec3D origin    = new Vec3D(0,   0, 0);
@@ -76,33 +73,11 @@ void keyPressed() {
   randomize();
 }
 
-void mousePressed() {
-
+void mousePressed () {
+  arcCam.mousePressed(mouseX, mouseY);
 }
-
-void mouseDragged() {
-  if (mousePressed == true) {
-    float dx   = (pmouseX - mouseX)*2;
-    rotationX += dx;
-
-    float dy   = (pmouseY - mouseY)*2;
-    rotationY += dy;
-
-    float orbitRadius = 1200;
-    float theta = radians(rotationX);
-    float phi   = radians(rotationY);
-
-    float xpos = sin(theta)*sin(phi)*orbitRadius;
-    float ypos = cos(phi)*orbitRadius;
-    float zpos = cos(theta)*sin(phi)*orbitRadius;
-
-    camera(xpos, ypos, zpos, 0, -400, 0, 0, 1, 0);
-
-    System.out.format("x: %.2f\ty: %.2f\tz: %.2f\n", xpos, ypos, zpos);
-  }
-}
-
-void mouseReleased() {
+void mouseDragged () {
+  arcCam.mouseDragged(mouseX, mouseY);
 }
 
 void randomize() {
