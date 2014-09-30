@@ -24,11 +24,11 @@ int growthDelay;
 int currentIteration;
 int currentFrame;
 
+
 void setup() {
   size(800, 800, P3D);
   smooth();
-  cam = new PeasyCam(this, 100);
-  //ui();
+  cam = new PeasyCam(this, 0, -400, 0, 1200);
 
   segments = new ArrayList <LSegment> ();
 
@@ -46,8 +46,8 @@ void draw() {
   segments.clear();
 
   // creating a proto segment spawns all of it's iterations
-  Vec3D origin    = new Vec3D( 0, 0, 0);
-  Vec3D direction = new Vec3D(50, 0, 0);
+  Vec3D origin    = new Vec3D(0,   0, 0);
+  Vec3D direction = new Vec3D(0, -50, 0);
   LSegment proto  = new LSegment(origin, direction,
                                  currentIteration, "A");
   segments.add(proto);
@@ -73,9 +73,9 @@ void randomize() {
   sA_angleY = random(0);
   sA_angleZ = random(0,10);
 
-  sB_angleX = random(-90,90);
-  sB_angleY = random(-10,90);
-  sB_angleZ = random(-90,90);
+  sB_angleX = random(0);
+  sB_angleY = random(90,90);
+  sB_angleZ = random(0);
 
   sC_angleX = random(-20,20);
   sC_angleY = random(-20,20);
