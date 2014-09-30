@@ -1,7 +1,6 @@
 import toxi.geom.*;
-import peasy.*;
 
-PeasyCam cam;
+ArcBall arcCam;
 ArrayList <LSegment> segments;
 
 // global values for determining drawing rules
@@ -24,11 +23,18 @@ int growthDelay;
 int currentIteration;
 int currentFrame;
 
+float rotationX;
+float rotationY;
 
 void setup() {
-  size(800, 800, P3D);
+  size(1000, 800, P3D);
   smooth();
-  cam = new PeasyCam(this, 0, -400, 0, 1200);
+
+  rotationX = 0;
+  rotationY = 0;
+  camera(0,    0, 1200,  // eyeX, eyeY, eyeZ
+         0, -400,    0,  // centerX, centerY, centerZ
+         0,    1,    0); // upX, upY, upZ
 
   segments = new ArrayList <LSegment> ();
 
@@ -56,16 +62,47 @@ void draw() {
     s.run();
   }
 
+
   currentFrame++;
   if (currentFrame >= growthDelay &&
       currentIteration <= s_iterations) {
     currentIteration++;
     currentFrame = 0;
   }
+
 }
 
 void keyPressed() {
   randomize();
+}
+
+void mousePressed() {
+
+}
+
+void mouseDragged() {
+  if (mousePressed == true) {
+    float dx   = (pmouseX - mouseX)*2;
+    rotationX += dx;
+
+    float dy   = (pmouseY - mouseY)*2;
+    rotationY += dy;
+
+    float orbitRadius = 1200;
+    float theta = radians(rotationX);
+    float phi   = radians(rotationY);
+
+    float xpos = sin(theta)*sin(phi)*orbitRadius;
+    float ypos = cos(phi)*orbitRadius;
+    float zpos = cos(theta)*sin(phi)*orbitRadius;
+
+    camera(xpos, ypos, zpos, 0, -400, 0, 0, 1, 0);
+
+    System.out.format("x: %.2f\ty: %.2f\tz: %.2f\n", xpos, ypos, zpos);
+  }
+}
+
+void mouseReleased() {
 }
 
 void randomize() {
