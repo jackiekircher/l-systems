@@ -1,16 +1,16 @@
 class LSegment {
 
-  Vec3D  location;
-  Vec3D  origin;
-  Vec3D  direction;
-  int    iterations;
-  String type;
+  Vector3D  location;
+  Vector3D  origin;
+  Vector3D  direction;
+  int       iterations;
+  String    type;
 
-  LSegment(Vec3D _origin,     Vec3D  _direction,
-           int   _iterations, String _type) {
+  LSegment(Vector3D _origin,  Vector3D  _direction,
+           int  _iterations,  String _type) {
 
     origin     = _origin;
-    location   = _origin.copy();
+    location   = _origin.get();
     direction  = _direction;
     iterations = _iterations;
     type       = _type;
@@ -21,7 +21,7 @@ class LSegment {
   }
 
   void updateLocation() {
-    location.addSelf(direction);
+    location.add(direction);
   }
 
   // determines the graphical meaning of the segment
@@ -95,7 +95,7 @@ class LSegment {
   }
 
   void createNextIteration(String type) {
-    LSegment nextSegment = new LSegment(location.copy(), direction.copy(),
+    LSegment nextSegment = new LSegment(location.get(), direction.get(),
                                         iterations-1, type);
     segments.add(nextSegment);
   }

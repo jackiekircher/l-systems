@@ -1,4 +1,3 @@
-import toxi.geom.*;
 
 ArcBall arcCam;
 ArrayList <LSegment> segments;
@@ -17,7 +16,6 @@ float sC_angleY;
 float sC_angleZ;
 
 int   s_iterations;
-
 
 int growthDelay;
 int currentIteration;
@@ -49,10 +47,10 @@ void draw() {
   arcCam.apply();
 
   // creating a proto segment spawns all of it's iterations
-  Vec3D origin    = new Vec3D(0,   0, 0);
-  Vec3D direction = new Vec3D(0, -50, 0);
-  LSegment proto  = new LSegment(origin, direction,
-                                 currentIteration, "A");
+  Vector3D origin    = new Vector3D(0,   0, 0);
+  Vector3D direction = new Vector3D(0, -50, 0);
+  LSegment proto     = new LSegment(origin, direction,
+                                    currentIteration, "A");
   segments.add(proto);
 
   for(LSegment s:segments) {
