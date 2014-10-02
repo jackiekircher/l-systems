@@ -78,7 +78,12 @@ void draw() {
 }
 
 void keyPressed() {
-  randomize();
+  if(key == 'r') {
+    currentIteration = 0;
+  }
+  else if(key == ' ') {
+    randomize();
+  }
 }
 
 void mousePressed () {
