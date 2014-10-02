@@ -27,13 +27,13 @@ void setup() {
   size(1000, 800, P3D);
   smooth();
 
-  camera(0,    0, 1000,  // eyeX, eyeY, eyeZ
-         0, -200,    0,  // centerX, centerY, centerZ
-         0,    1,    0); // upX, upY, upZ
-  arcCam = new ArcBall(0.0, 0.0, 0.0, 1000.0, this);
+  camera(0, 0, 200,  // eyeX, eyeY, eyeZ
+         0, 0, 0,  // centerX, centerY, centerZ
+         0, 1, 0); // upX, upY, upZ
+  arcCam = new ArcBall(0, 0, -700, 1000, this);
 
-  font = createFont("Arial",36,true);
-  textFont(font);
+  font = createFont("Monaco",48,true);
+  textFont(font, 6);
 
   segments = new ArrayList <LSegment> ();
 
@@ -44,6 +44,8 @@ void setup() {
   growthDelay  = 6;
 
   randomize();
+
+  PFont.list();
 }
 
 void draw() {
@@ -55,8 +57,8 @@ void draw() {
   arcCam.apply();
 
   // creating a proto segment spawns all of it's iterations
-  Vector3D origin    = new Vector3D(0,   0, 0);
-  Vector3D direction = new Vector3D(0, -50, 0);
+  Vector3D origin    = new Vector3D(0, 200, -700);
+  Vector3D direction = new Vector3D(0, -50,     0);
   LSegment proto     = new LSegment(origin, direction,
                                     currentIteration, "A");
   segments.add(proto);
@@ -107,14 +109,21 @@ void randomize() {
 void overlayText() {
   fill(255);
 
-  String aData = String.format("A - rotate x: %3.2f°  rotate y: %3.2f°  rotate z: %3.2f°",
+  String aData = String.format("A ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
                                sA_angleX, sA_angleY, sA_angleZ);
-  String bData = String.format("B - rotate x: %3.2f°  rotate y: %3.2f°  rotate z: %3.2f°",
+  String fData = String.format("F ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
+                               sA_angleX, sA_angleY, sA_angleZ);
+  String bData = String.format("B ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
                                sB_angleX, sB_angleY, sB_angleZ);
-  String cData = String.format("C - rotate x: %3.2f°  rotate y: %3.2f°  rotate z: %3.2f°",
+  String cData = String.format("C ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
                                sC_angleX, sC_angleY, sC_angleZ);
 
-  text(aData, -650, 200);
-  text(bData, -650, 250);
-  text(cData, -650, 300);
+  text("rules: (A -> F), (F -> AC+C+C), (C -> CB), (B -> B)", -140, -106);
+  text("start: A, angle: (0,120°,0)", -140, -96);
+
+  text("Drawing rules (axis rotation)", -140, 80);
+  text(aData, -140,  88, 0);
+  text(fData, -140,  96, 0);
+  text(bData, -140, 104, 0);
+  text(cData, -140, 112, 0);
 }
