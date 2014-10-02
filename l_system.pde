@@ -1,3 +1,4 @@
+PFont font;
 
 ArcBall arcCam;
 ArrayList <LSegment> segments;
@@ -17,6 +18,7 @@ float sC_angleZ;
 
 int   s_iterations;
 
+
 int growthDelay;
 int currentIteration;
 int currentFrame;
@@ -25,10 +27,13 @@ void setup() {
   size(1000, 800, P3D);
   smooth();
 
-  camera(0,    0, 1200,  // eyeX, eyeY, eyeZ
-         0, -400,    0,  // centerX, centerY, centerZ
+  camera(0,    0, 1000,  // eyeX, eyeY, eyeZ
+         0, -200,    0,  // centerX, centerY, centerZ
          0,    1,    0); // upX, upY, upZ
-  arcCam = new ArcBall(0.0, 0.0, 0.0, 1200.0, this);
+  arcCam = new ArcBall(0.0, 0.0, 0.0, 1000.0, this);
+
+  font = createFont("Arial",36,true);
+  textFont(font);
 
   segments = new ArrayList <LSegment> ();
 
@@ -44,6 +49,9 @@ void setup() {
 void draw() {
   background(0);
   segments.clear();
+
+  overlayText();
+
   arcCam.apply();
 
   // creating a proto segment spawns all of it's iterations
@@ -94,4 +102,19 @@ void randomize() {
   //s_iterations = int(random(8,20));
   currentIteration = 0;
   currentFrame     = 0;
+}
+
+void overlayText() {
+  fill(255);
+
+  String aData = String.format("A - rotate x: %3.2f°  rotate y: %3.2f°  rotate z: %3.2f°",
+                               sA_angleX, sA_angleY, sA_angleZ);
+  String bData = String.format("B - rotate x: %3.2f°  rotate y: %3.2f°  rotate z: %3.2f°",
+                               sB_angleX, sB_angleY, sB_angleZ);
+  String cData = String.format("C - rotate x: %3.2f°  rotate y: %3.2f°  rotate z: %3.2f°",
+                               sC_angleX, sC_angleY, sC_angleZ);
+
+  text(aData, -650, 200);
+  text(bData, -650, 250);
+  text(cData, -650, 300);
 }
