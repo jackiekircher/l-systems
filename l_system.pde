@@ -33,7 +33,7 @@ void setup() {
   arcCam = new ArcBall(0, 0, -700, 1000, this);
 
   font = createFont("Monaco",48,true);
-  textFont(font, 6);
+  textFont(font, 8);
 
   segments = new ArrayList <LSegment> ();
 
@@ -126,9 +126,9 @@ void overlayText() {
   text("rules: (A -> F), (F -> AC+C+C), (C -> CB), (B -> B)", -140, -106);
   text("start: A, angle: (0,120°,0)", -140, -96);
 
-  text("Drawing rules (axis rotation)", -140, 80);
-  text(aData, -140,  88, 0);
-  text(fData, -140,  96, 0);
-  text(bData, -140, 104, 0);
-  text(cData, -140, 112, 0);
+  text("Drawing rules (axis rotation)", -140, 70);
+  text(aData, -140,  80, 0);
+  text(fData, -140,  90, 0);
+  text(bData, -140, 100, 0);
+  text(cData, -140, 110, 0);
 }
