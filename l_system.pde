@@ -81,15 +81,15 @@ void mouseDragged () {
 void randomize() {
   sA_angleX = random(0,10);
   sA_angleY = random(0);
-  sA_angleZ = random(0,10);
+  sA_angleZ = random(-10,10);
 
-  sB_angleX = random(0);
-  sB_angleY = random(90,90);
-  sB_angleZ = random(0);
+  sB_angleX = random(-30,30);
+  sB_angleY = random(-30,30);
+  sB_angleZ = random(-30,30);
 
-  sC_angleX = random(-20,20);
-  sC_angleY = random(-20,20);
-  sC_angleZ = random(-20,20);
+  sC_angleX = random(-90,90);
+  sC_angleY = random(-90,90);
+  sC_angleZ = random(-90,90);
 
   //s_iterations = int(random(8,20));
   currentIteration = 0;

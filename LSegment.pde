@@ -27,26 +27,20 @@ class LSegment {
   // determines the graphical meaning of the segment
   // (rotation, length, color, etc)
   void updateDirection() {
-    if(type == "A") {
-      float angleX = radians(sA_angleX);
-      float angleY = radians(sA_angleY);
-      float angleZ = radians(sA_angleZ);
-
-      rotateDirection(angleX, angleY, angleZ);
+    if(type == "A" || type =="F") {
+      rotateDirection(radians(sA_angleX),
+                      radians(sA_angleY),
+                      radians(sA_angleZ));
     }
     if(type == "B") {
-      float angleX = radians(sB_angleX);
-      float angleY = radians(sB_angleY);
-      float angleZ = radians(sB_angleZ);
-
-      rotateDirection(angleX, angleY, angleZ);
+      rotateDirection(radians(sB_angleX),
+                      radians(sB_angleY),
+                      radians(sB_angleZ));
     }
     if(type == "C") {
-      float angleX = radians(sC_angleX);
-      float angleY = radians(sC_angleY);
-      float angleZ = radians(sC_angleZ);
-
-      rotateDirection(angleX, angleY, angleZ);
+      rotateDirection(radians(sC_angleX),
+                      radians(sC_angleY),
+                      radians(sC_angleZ));
     }
   }
 
@@ -58,16 +52,24 @@ class LSegment {
     if(iterations > 0) {
 
       if(type == "A") {
+        createNextIteration("F");
+      }
+
+      if(type == "F") {
         createNextIteration("A");
+        createNextIteration("C");
+        direction.rotateY(radians(120));
+        createNextIteration("C");
+        direction.rotateY(radians(120));
         createNextIteration("C");
       }
 
-      if(type == "B") {
-        createNextIteration("A");
+      if(type == "C") {
+        createNextIteration("C");
+        createNextIteration("B");
       }
 
-      if(type == "C") {
-        createNextIteration("B");
+      if(type == "B") {
         createNextIteration("B");
       }
     }
