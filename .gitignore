@@ -1,5 +1,7 @@
 web-export/*
 application.*/*
 sketch.properties
+image_dump/*
+screenshots/*
 
 .DS_Store

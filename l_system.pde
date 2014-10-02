@@ -2,6 +2,7 @@ PFont font;
 
 ArcBall arcCam;
 ArrayList <LSegment> segments;
+boolean recording;
 
 // global values for determining drawing rules
 float sA_angleX;
@@ -31,6 +32,7 @@ void setup() {
          0, 0, 0,  // centerX, centerY, centerZ
          0, 1, 0); // upX, upY, upZ
   arcCam = new ArcBall(0, 0, -700, 1000, this);
+  recording = false;
 
   font = createFont("Monaco",48,true);
   textFont(font, 8);
@@ -75,11 +77,26 @@ void draw() {
     currentFrame = 0;
   }
 
+  if (recording == true) {
+    saveFrame("/Users/jackie/code/processing/l_system/image_dump/screen-####.png");
+    if (currentIteration >= s_iterations) {
+      growthDelay = 6;
+      recording   = false;
+    }
+  }
 }
 
 void keyPressed() {
   if(key == 'r') {
     currentIteration = 0;
+  }
+  else if(key == 's') {
+    saveFrame("/Users/jackie/code/processing/l_system/screenshots/####.png");
+  }
+  else if(key == 'p') {
+    currentIteration = 0;
+    growthDelay = 0;
+    recording = true;
   }
   else if(key == ' ') {
     randomize();
