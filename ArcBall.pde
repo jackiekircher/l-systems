@@ -64,6 +64,16 @@ public class ArcBall
     mousePressed( center_x, center_y );
     mouseDragged( center_x-0.0001, center_y-0.0001 );
   }
+
+  public void reset() {
+    arcCam.q_now.reset();
+    arcCam.q_down.reset();
+    arcCam.q_drag.reset();
+
+    mousePressed( center_x, center_y );
+    mouseDragged( center_x-0.0001, center_y-0.0001 );
+  }
+
   public void mousePressed ( float mx, float my )
   {
     v_down = mouse_to_sphere( mx, my );

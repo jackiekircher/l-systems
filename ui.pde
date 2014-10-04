@@ -22,7 +22,8 @@ void overlayText() {
 
 /* user inputs
  *
- * r   -> reset the current system and draw from the beginning
+ * r   -> replay the current system and draw from the beginning
+ * c   -> reset the camera to its initial position
  * s   -> save the current frame in the screenshots dir
  * p   -> replay the building of the current system and save each frame
  *        to the image_dump dir
@@ -34,6 +35,10 @@ void overlayText() {
 void keyPressed() {
   if(key == 'r') {
     currentIteration = 0;
+  }
+
+  else if(key == 'c') {
+    arcCam.reset();
   }
 
   else if(key == 's') {
