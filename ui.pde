@@ -1,5 +1,6 @@
 void overlayText() {
   fill(255);
+  textFont(font, 22);
 
   String aData = new String("A ->"  +
                             "  x: " + nfp(system.aRotation.x,2,2) + "°" +
@@ -18,14 +19,14 @@ void overlayText() {
                             "  y: " + nfp(system.cRotation.y,2,2) + "°" +
                             "  z: " + nfp(system.cRotation.z,2,2) + "°");
 
-  text("rules: (A -> F), (F -> AC+C+C), (C -> CB), (B -> B)", -140, -106);
-  text("start: A, angle: (0,120°,0)", -140, -96);
+  text("rules: (A -> F), (F -> AC+C+C), (C -> CB), (B -> B)", 20, 20);
+  text("start: A, angle: (0,120°,0)", 20, 50);
 
-  text("Drawing rules (axis rotation)", -140, 70);
-  text(aData, -140,  80, 0);
-  text(fData, -140,  90, 0);
-  text(bData, -140, 100, 0);
-  text(cData, -140, 110, 0);
+  text("Drawing rules (axis rotation)", 20, 650);
+  text(aData, 20, 680, 0);
+  text(fData, 20, 710, 0);
+  text(bData, 20, 740, 0);
+  text(cData, 20, 770, 0);
 }
 
 /* user inputs

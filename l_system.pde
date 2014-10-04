@@ -11,13 +11,12 @@ void setup() {
   size(1000, 800, P3D);
   smooth();
 
-  camera(0, 0, 200,  // eyeX, eyeY, eyeZ
+  camera(0, 0, 0,  // eyeX, eyeY, eyeZ
          0, 0, 0,  // centerX, centerY, centerZ
          0, 1, 0); // upX, upY, upZ
-  arcCam = new ArcBall(0, 0, -700, 1000, this);
+  arcCam = new ArcBall(500, 400, -200, 1000, this);
 
   font = createFont("Monaco",48,true);
-  textFont(font, 8);
 
   recording        = false;
   growthDelay      = 6;
