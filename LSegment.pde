@@ -3,17 +3,17 @@ class LSegment {
   Vector3D  location;
   Vector3D  origin;
   Vector3D  direction;
-  int       iterations;
+  int       iteration;
   String    type;
 
-  LSegment(Vector3D _origin,  Vector3D  _direction,
-           int  _iterations,  String _type) {
+  LSegment(Vector3D _origin, Vector3D  _direction,
+           int _iteration,   String _type) {
 
-    origin     = _origin;
-    location   = _origin.get();
-    direction  = _direction;
-    iterations = _iterations;
-    type       = _type;
+    origin    = _origin;
+    location  = _origin.get();
+    direction = _direction;
+    iteration = _iteration;
+    type      = _type;
 
     updateLocation();
     updateDirection();
@@ -28,32 +28,32 @@ class LSegment {
   // (rotation, length, color, etc)
   void updateDirection() {
     if(type == "A" || type =="F") {
-      rotateDirection(radians(system.aRotation.x),
-                      radians(system.aRotation.y),
-                      radians(system.aRotation.z));
+      rotateDirection(system.aRotation.x,
+                      system.aRotation.y,
+                      system.aRotation.z);
     }
     if(type == "B") {
-      rotateDirection(radians(system.bRotation.x),
-                      radians(system.bRotation.y),
-                      radians(system.bRotation.z));
+      rotateDirection(system.bRotation.x,
+                      system.bRotation.y,
+                      system.bRotation.z);
     }
     if(type == "C") {
-      rotateDirection(radians(system.cRotation.x),
-                      radians(system.cRotation.y),
-                      radians(system.cRotation.z));
+      rotateDirection(system.cRotation.x,
+                      system.cRotation.y,
+                      system.cRotation.z);
     }
   }
 
   /* production rules (recursive)
    *
-   * determines how each segment mutates across iterations.
+   * determines how each segment mutates across iteration.
    * these rules shouldn't belong to the segment but they
    * are needed here since I don't know how to metaprogram
    * in processing
    */
   void spawn() {
 
-    if(iterations < system.iterations-1) {
+    if(iteration < system.iterations-1) {
 
       if(type == "A") {
         createNextIteration("F");
@@ -62,9 +62,9 @@ class LSegment {
       if(type == "F") {
         createNextIteration("A");
         createNextIteration("C");
-        direction.rotateY(radians(120));
+        rotateDirection(0,120,0);
         createNextIteration("C");
-        direction.rotateY(radians(120));
+        rotateDirection(0,120,0);
         createNextIteration("C");
       }
 
@@ -80,15 +80,10 @@ class LSegment {
   }
 
   void display() {
-    int vRed   = int(iterations*20);
+    int vRed   = (system.iterations - iteration)*
+                 int(255/system.iterations);
     int vGreen = 255;
     int vBlue  = 255;
-
-    /*
-    stroke(vRed,vGreen,vBlue);
-    strokeWeight(4);
-    point(origin.x, origin.y, origin.z);
-    */
 
     stroke(vRed,vGreen,vBlue);
     strokeWeight(2);
@@ -96,15 +91,15 @@ class LSegment {
          location.x, location.y, location.z);
   }
 
-  void createNextIteration(String type) {
+  private void createNextIteration(String type) {
     LSegment nextSegment = new LSegment(location.get(), direction.get(),
-                                        iterations+1, type);
-    system.addSegment(iterations+1, nextSegment);
+                                        iteration+1, type);
+    system.addSegment(iteration+1, nextSegment);
   }
 
-  void rotateDirection(float angleX, float angleY, float angleZ) {
-    direction.rotateX(angleX);
-    direction.rotateY(angleY);
-    direction.rotateZ(angleZ);
+  private void rotateDirection(float x, float y, float z) {
+    direction.rotateX( radians(x) );
+    direction.rotateY( radians(y) );
+    direction.rotateZ( radians(z) );
   }
 }
