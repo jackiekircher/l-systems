@@ -1,14 +1,22 @@
 void overlayText() {
   fill(255);
 
-  String aData = String.format("A ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
-                               system.aRotation.x, system.aRotation.y, system.aRotation.z);
-  String fData = String.format("F ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
-                               system.aRotation.x, system.aRotation.y, system.aRotation.z);
-  String bData = String.format("B ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
-                               system.bRotation.x, system.bRotation.y, system.bRotation.z);
-  String cData = String.format("C ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
-                               system.cRotation.x, system.cRotation.y, system.cRotation.z);
+  String aData = new String("A ->"  +
+                            "  x: " + nfp(system.aRotation.x,2,2) + "°" +
+                            "  y: " + nfp(system.aRotation.y,2,2) + "°" +
+                            "  z: " + nfp(system.aRotation.z,2,2) + "°");
+  String fData = new String("F ->"  +
+                            "  x: " + nfp(system.aRotation.x,2,2) + "°" +
+                            "  y: " + nfp(system.aRotation.y,2,2) + "°" +
+                            "  z: " + nfp(system.aRotation.z,2,2) + "°");
+  String bData = new String("B ->"  +
+                            "  x: " + nfp(system.bRotation.x,2,2) + "°" +
+                            "  y: " + nfp(system.bRotation.y,2,2) + "°" +
+                            "  z: " + nfp(system.bRotation.z,2,2) + "°");
+  String cData = new String("C ->"  +
+                            "  x: " + nfp(system.cRotation.x,2,2) + "°" +
+                            "  y: " + nfp(system.cRotation.y,2,2) + "°" +
+                            "  z: " + nfp(system.cRotation.z,2,2) + "°");
 
   text("rules: (A -> F), (F -> AC+C+C), (C -> CB), (B -> B)", -140, -106);
   text("start: A, angle: (0,120°,0)", -140, -96);

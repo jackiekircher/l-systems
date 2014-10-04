@@ -1,13 +1,13 @@
 class LSegment {
 
-  Vector3D  location;
-  Vector3D  origin;
-  Vector3D  direction;
-  int       iteration;
-  String    type;
+  PVector location;
+  PVector origin;
+  PVector direction;
+  int     iteration;
+  String  type;
 
-  LSegment(Vector3D _origin, Vector3D  _direction,
-           int _iteration,   String _type) {
+  LSegment(PVector _origin, PVector _direction,
+           int _iteration,  String  _type) {
 
     origin    = _origin;
     location  = _origin.get();
@@ -98,8 +98,21 @@ class LSegment {
   }
 
   private void rotateDirection(float x, float y, float z) {
-    direction.rotateX( radians(x) );
-    direction.rotateY( radians(y) );
-    direction.rotateZ( radians(z) );
+    sRotateX(direction, radians(x));
+    sRotateY(direction, radians(y));
+    sRotateZ(direction, radians(z));
+  }
+
+  private void sRotateX(PVector vector, float angle) {
+    vector.y = vector.y*cos(angle) - vector.z*sin(angle);
+    vector.z = vector.y*sin(angle) + vector.z*cos(angle);
+  }
+  private void sRotateY(PVector vector, float angle) {
+    vector.x = vector.x*cos(angle) + vector.z*sin(angle);
+    vector.z = -vector.x*sin(angle) + vector.z*cos(angle);
+  }
+  private void sRotateZ(PVector vector, float angle) {
+    vector.x = vector.x*cos(angle) - vector.y*sin(angle);
+    vector.y = vector.x*sin(angle) + vector.y*cos(angle);
   }
 }

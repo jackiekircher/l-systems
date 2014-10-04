@@ -7,8 +7,8 @@ class LSystem {
   Rotation3D bRotation;
   Rotation3D cRotation;
 
-  Vector3D   origin;
-  Vector3D   direction;
+  PVector    origin;
+  PVector    direction;
 
   /* LSystem constructor
    *
@@ -28,8 +28,8 @@ class LSystem {
       segments.add(new ArrayList<LSegment>());
     }
 
-    origin      = new Vector3D(0, 200, -700);
-    direction   = new Vector3D(0, -50,    0);
+    origin      = new PVector(0, 200, -700);
+    direction   = new PVector(0, -50,    0);
 
     aRotation   = new Rotation3D();
     aRotation.x = random(0,10);
@@ -64,8 +64,8 @@ class LSystem {
   }
 
   void draw(int n) {
-    for(ArrayList<LSegment> l : segments.subList(0,n)) {
-      for(LSegment s : l) {
+    for(int i=0; i < n; i++){
+      for(LSegment s : segments.get(i)) {
         s.display();
       }
     }
