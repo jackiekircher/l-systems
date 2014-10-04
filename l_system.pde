@@ -1,28 +1,11 @@
-PFont font;
-
+PFont   font;
 ArcBall arcCam;
-ArrayList <LSegment> segments;
+LSystem system;
+
 boolean recording;
-
-// global values for determining drawing rules
-float sA_angleX;
-float sA_angleY;
-float sA_angleZ;
-
-float sB_angleX;
-float sB_angleY;
-float sB_angleZ;
-
-float sC_angleX;
-float sC_angleY;
-float sC_angleZ;
-
-int   s_iterations;
-
-
-int growthDelay;
-int currentIteration;
-int currentFrame;
+int     growthDelay;
+int     currentFrame;
+int     currentIteration;
 
 void setup() {
   size(1000, 800, P3D);
@@ -32,54 +15,35 @@ void setup() {
          0, 0, 0,  // centerX, centerY, centerZ
          0, 1, 0); // upX, upY, upZ
   arcCam = new ArcBall(0, 0, -700, 1000, this);
-  recording = false;
 
   font = createFont("Monaco",48,true);
   textFont(font, 8);
 
-  segments = new ArrayList <LSegment> ();
-
-  s_iterations     = 14;
+  recording        = false;
+  growthDelay      = 6;
+  currentFrame     = 0;
   currentIteration = 0;
 
-  currentFrame = 0;
-  growthDelay  = 6;
-
   randomize();
-
-  PFont.list();
 }
 
 void draw() {
   background(0);
-  segments.clear();
-
   overlayText();
 
   arcCam.apply();
-
-  // creating a proto segment spawns all of it's iterations
-  Vector3D origin    = new Vector3D(0, 200, -700);
-  Vector3D direction = new Vector3D(0, -50,     0);
-  LSegment proto     = new LSegment(origin, direction,
-                                    currentIteration, "A");
-  segments.add(proto);
-
-  for(LSegment s:segments) {
-    s.run();
-  }
-
+  system.draw(currentIteration);
 
   currentFrame++;
   if (currentFrame >= growthDelay &&
-      currentIteration <= s_iterations) {
+      currentIteration < system.iterations) {
     currentIteration++;
     currentFrame = 0;
   }
 
   if (recording == true) {
     saveFrame("/Users/jackie/code/processing/l_system/image_dump/screen-####.png");
-    if (currentIteration >= s_iterations) {
+    if (currentIteration >= system.iterations) {
       growthDelay = 6;
       recording   = false;
     }
@@ -87,19 +51,9 @@ void draw() {
 }
 
 void randomize() {
-  sA_angleX = random(0,10);
-  sA_angleY = random(0);
-  sA_angleZ = random(-10,10);
+  system = new LSystem(14);
+  system.init();
 
-  sB_angleX = random(-30,30);
-  sB_angleY = random(-30,30);
-  sB_angleZ = random(-30,30);
-
-  sC_angleX = random(-90,90);
-  sC_angleY = random(-90,90);
-  sC_angleZ = random(-90,90);
-
-  //s_iterations = int(random(8,20));
   currentIteration = 0;
   currentFrame     = 0;
 }

@@ -28,28 +28,32 @@ class LSegment {
   // (rotation, length, color, etc)
   void updateDirection() {
     if(type == "A" || type =="F") {
-      rotateDirection(radians(sA_angleX),
-                      radians(sA_angleY),
-                      radians(sA_angleZ));
+      rotateDirection(radians(system.aRotation.x),
+                      radians(system.aRotation.y),
+                      radians(system.aRotation.z));
     }
     if(type == "B") {
-      rotateDirection(radians(sB_angleX),
-                      radians(sB_angleY),
-                      radians(sB_angleZ));
+      rotateDirection(radians(system.bRotation.x),
+                      radians(system.bRotation.y),
+                      radians(system.bRotation.z));
     }
     if(type == "C") {
-      rotateDirection(radians(sC_angleX),
-                      radians(sC_angleY),
-                      radians(sC_angleZ));
+      rotateDirection(radians(system.cRotation.x),
+                      radians(system.cRotation.y),
+                      radians(system.cRotation.z));
     }
   }
 
-  // production rules
-  // determines how each segment mutates across iterations
-  // (recursive)
+  /* production rules (recursive)
+   *
+   * determines how each segment mutates across iterations.
+   * these rules shouldn't belong to the segment but they
+   * are needed here since I don't know how to metaprogram
+   * in processing
+   */
   void spawn() {
 
-    if(iterations > 0) {
+    if(iterations < system.iterations-1) {
 
       if(type == "A") {
         createNextIteration("F");
@@ -75,10 +79,6 @@ class LSegment {
     }
   }
 
-  void run() {
-    display();
-  }
-
   void display() {
     int vRed   = int(iterations*20);
     int vGreen = 255;
@@ -98,8 +98,8 @@ class LSegment {
 
   void createNextIteration(String type) {
     LSegment nextSegment = new LSegment(location.get(), direction.get(),
-                                        iterations-1, type);
-    segments.add(nextSegment);
+                                        iterations+1, type);
+    system.addSegment(iterations+1, nextSegment);
   }
 
   void rotateDirection(float angleX, float angleY, float angleZ) {

@@ -2,13 +2,13 @@ void overlayText() {
   fill(255);
 
   String aData = String.format("A ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
-                               sA_angleX, sA_angleY, sA_angleZ);
+                               system.aRotation.x, system.aRotation.y, system.aRotation.z);
   String fData = String.format("F ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
-                               sA_angleX, sA_angleY, sA_angleZ);
+                               system.aRotation.x, system.aRotation.y, system.aRotation.z);
   String bData = String.format("B ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
-                               sB_angleX, sB_angleY, sB_angleZ);
+                               system.bRotation.x, system.bRotation.y, system.bRotation.z);
   String cData = String.format("C ->  x: %6.2f°  y: %6.2f°  z: %6.2f°",
-                               sC_angleX, sC_angleY, sC_angleZ);
+                               system.cRotation.x, system.cRotation.y, system.cRotation.z);
 
   text("rules: (A -> F), (F -> AC+C+C), (C -> CB), (B -> B)", -140, -106);
   text("start: A, angle: (0,120°,0)", -140, -96);
