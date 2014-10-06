@@ -28,8 +28,8 @@ class LSystem {
       segments.add(new ArrayList<LSegment>());
     }
 
-    origin      = new PVector(500, 600, -200);
-    direction   = new PVector(0, -50,    0);
+    origin      = new PVector(300, 500, -200);
+    direction   = new PVector(0,   -50,    0);
 
     aRotation   = new Rotation3D();
     aRotation.x = random(0,10);
